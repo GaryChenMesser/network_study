@@ -14,8 +14,7 @@ import time
 import powerlaw
 
 # parameter
-MAX_STEP = int(10e+6)
-NULL_VERTEX = 0
+#MAX_STEP = int(10e+6)
 
 # parse for arguments
 parser = argparse.ArgumentParser(prog='BA.py', description='Specify the parameter for BA Model.')
@@ -32,7 +31,6 @@ start_time = time.time()
 g = Graph()
 
 # intitial condition
-# add a null vertex with index 0
 g.add_vertex(args.init)
 
 g = price_network(args.step + args.init, m=args.c, c=args.c, seed_graph=g)

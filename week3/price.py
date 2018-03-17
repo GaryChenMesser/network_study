@@ -33,7 +33,6 @@ start_time = time.time()
 g = Graph()
 
 # intitial condition
-# add a null vertex with index 0
 g.add_vertex(args.init)
 
 g = price_network(args.step + args.init, m=args.c, c=args.a, seed_graph=g)
