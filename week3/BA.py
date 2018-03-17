@@ -40,7 +40,7 @@ g = price_network(args.step + args.init, m=args.c, c=args.c, seed_graph=g)
 print("--- %s seconds ---" % (time.time() - start_time))
 
 # plot it
-in_hist = vertex_hist(g, "in")
+in_hist = vertex_hist(g, "total")
 
 y = in_hist[0]
 err = sqrt(in_hist[0])
