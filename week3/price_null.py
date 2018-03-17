@@ -12,6 +12,8 @@ import argparse
 import random
 import time
 
+import powerlaw
+
 # parameter
 MAX_STEP = int(10e+6)
 NULL_VERTEX = 0
@@ -56,7 +58,7 @@ for step in range(args.step):
 		for c in range(args.c):
 			g.add_edge(NULL_VERTEX, new_vertex)
 	
-	if (step + args.init + 1) % 500 == 0:
+	if (step + args.init + 1) % 5000 == 0:
 		print('number of vertex: ', step + args.init + 1)
 		print('number of edge: ', (step + 1) * args.c)
 
@@ -67,7 +69,7 @@ for i in g.vertex(NULL_VERTEX).out_neighbors():
 		_map[j] = False
 g.set_edge_filter(_map)
 
-print("--- %s seconds ---" % (time.time() - start_time))
+#print("--- %s seconds ---" % (time.time() - start_time))
 
 # plot it
 in_hist = vertex_hist(g, "in")
@@ -88,3 +90,8 @@ xlabel("$k_{in}$")
 ylabel("$NP(k_{in})$")
 tight_layout()
 savefig("price_null-deg-dist.pdf")
+
+# calculate exponent
+results = powerlaw.Fit(in_hist[0])
+print(results.power_law.alpha)
+print(results.power_law.xmin)
