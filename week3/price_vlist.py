@@ -80,8 +80,6 @@ ylabel("$NP(k_{in})$")
 tight_layout()
 savefig("price_vlist-deg-dist.pdf")
 
-print(in_hist[0])
-
 # calculate exponent
 results = powerlaw.Fit(in_hist[0])
 print(results.power_law.alpha)
