@@ -43,7 +43,7 @@ for i in range(0, args.init):
 # start the process
 for step in range(args.step):
 	chosen = []
-	for c in range(args.c):
+	for a in range(args.a):
 		chosen.append(vlist[random.randrange( 0, len(vlist))])
 		
 	new_vertex = g.add_vertex()
@@ -51,7 +51,7 @@ for step in range(args.step):
 	for choice in chosen:
 		g.add_edge(new_vertex, choice)
 		vlist.append(choice)
-		for a in range(args.a):
+		for c in range(args.c):
 			vlist.append(new_vertex)
 	
 	if (step + 1 + args.init) % 5000 == 0:
