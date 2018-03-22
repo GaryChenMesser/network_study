@@ -87,7 +87,7 @@ def plplot(x,xmin,alpha):
         plt.ylabel('Pr(X >= x)',fontsize=16);
         plt.xlabel('x',fontsize=16)
         plt.draw()
-        plt.savefig(sys.argv[1].split('/')[-1].split(',')[0] + '.png')
+        plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[3] + '_' + sys.argv[4] + '.png')
         
     elif f_dattype== 'INTS':
         n = len(x)
@@ -117,7 +117,7 @@ def plplot(x,xmin,alpha):
         plt.ylabel('Pr(X >= x)',fontsize=16);
         plt.xlabel('x',fontsize=16)
         plt.draw()
-        plt.savefig(sys.argv[1].split('/')[-1].split(',')[0] + '.png')
+        plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[3] + '_' + sys.argv[4] + '.png')
                  
           
 

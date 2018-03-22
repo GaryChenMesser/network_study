@@ -1,4 +1,4 @@
-#  price_vlist.py
+#  price_plot.py
 #  Official price. 
 #  
 #
@@ -12,8 +12,9 @@ import random
 import time
 
 # parameter
-MAX_STEP = int(10e+6)
-NULL_VERTEX = 0
+node_list = []
+edge_list = []
+diameter_list = []
 
 # parse for arguments
 parser = argparse.ArgumentParser(prog='price.py', description='Specify the parameter for Price Model.')
@@ -30,34 +31,20 @@ start_time = time.time()
 # create a directed empty graph
 g = Graph()
 
-# intitial condition
+# record evolution
 g.add_vertex(args.init)
-
-g = price_network(args.step + args.init, m=args.c, c=args.a, seed_graph=g)
-
+for count in range( int(args.step / 1000) ):
+	g = price_network( (count + 1) * 100 + args.init, m=args.c, c=args.a, seed_graph=g)
+	
+	n = len(g.get_vertices())
+	node_list.append(n)
+	edge_list.append(len(g.get_edges()))
+	diameter_list.append(int(pseudo_diameter(g, g.vertex(n - 1))[0]))
+	
+# print time elapse
 print("--- %s seconds ---" % (time.time() - start_time))
 
-# plot it
-in_hist = vertex_hist(g, "in")
-
-y = in_hist[0]
-err = sqrt(in_hist[0])
-err[err >= y] = y[err >= y] - 1e-2
-
-figure(figsize=(6,4))
-errorbar(in_hist[1][:-1], in_hist[0], fmt="o", yerr=err,
-        label="in")
-gca().set_yscale("log")
-gca().set_xscale("log")
-gca().set_ylim(1e-1, 1e5)
-gca().set_xlim(0.8, 1e3)
-subplots_adjust(left=0.2, bottom=0.2)
-xlabel("$k_{in}$")
-ylabel("$NP(k_{in})$")
-tight_layout()
-savefig("price-deg-dist.pdf")
-
-# output the vertex degree to temp.txt
+# output the vertex degree to degree.txt
 dlist = [v.in_degree() + 1 for v in g.vertices()]
 data = ""
 for d in dlist:
@@ -65,5 +52,34 @@ for d in dlist:
 	data += ","
 data = data[:-1]
 
-with open("temp.txt", 'w') as f:
+with open("degree.txt", 'w') as f:
+	f.write(data)
+
+# output the vertex and edge number over time to node_edge.txt
+data = ""
+for n in node_list:
+	data += str(n)
+	data += ","
+data = data[:-1] + '\n'
+for e in edge_list:
+	data += str(e)
+	data += ","
+data = data[:-1]
+
+with open("node_edge.txt", 'w') as f:
+	f.write(data)
+	print(data)
+
+# output pseudo_diameter to diameter.txt
+data = ""
+for d in diameter_list:
+	data += str(d)
+	data += ","
+data = data[:-1]
+#data += '\n'
+#for n in node_list:
+#	data += str(n)
+#data = data[:-1]
+print('diameter = ', data)
+with open("diameter.txt", 'w') as f:
 	f.write(data)

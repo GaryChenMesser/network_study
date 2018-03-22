@@ -44,7 +44,7 @@ for i in range(0, args.init):
 for step in range(args.step):
 	chosen = []
 	for c in range(args.c):
-		chosen.append(vlist[random.randrange( 0, len(vlist))])
+		chosen.append(vlist[random.randrange( 0, len(vlist) )])
 		
 	new_vertex = g.add_vertex()
 	
