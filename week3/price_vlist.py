@@ -43,7 +43,7 @@ for i in range(0, args.init):
 # start the process
 for step in range(args.step):
 	chosen = []
-	for a in range(args.a):
+	for c in range(args.c):
 		chosen.append(vlist[random.randrange( 0, len(vlist))])
 		
 	new_vertex = g.add_vertex()
@@ -51,8 +51,8 @@ for step in range(args.step):
 	for choice in chosen:
 		g.add_edge(new_vertex, choice)
 		vlist.append(choice)
-		for c in range(args.c):
-			vlist.append(new_vertex)
+	for a in range(args.a):
+		vlist.append(new_vertex)
 	
 	if (step + 1 + args.init) % 5000 == 0:
 		print('number of vertex: ', step + 1 + args.init)
@@ -80,7 +80,13 @@ ylabel("$NP(k_{in})$")
 tight_layout()
 savefig("price_vlist-deg-dist.pdf")
 
-# calculate exponent
-results = powerlaw.Fit(in_hist[0])
-print(results.power_law.alpha)
-print(results.power_law.xmin)
+# output the vertex degree to temp.txt
+dlist = sorted([v.in_degree() + 1 for v in g.vertices()])
+data = ""
+for d in dlist:
+	data += str(d)
+	data += ","
+data = data[:-1]
+
+with open("temp.txt", 'w') as f:
+	f.write(data)

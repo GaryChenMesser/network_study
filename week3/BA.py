@@ -57,7 +57,13 @@ ylabel("$NP(k_{in})$")
 tight_layout()
 savefig("BA-deg-dist.pdf")
 
-# calculate exponent
-results = powerlaw.Fit(in_hist[0])
-print(results.power_law.alpha)
-print(results.power_law.xmin)
+# output the vertex degree to temp.txt
+dlist = sorted([v.in_degree() + 1 for v in g.vertices()])
+data = ""
+for d in dlist:
+	data += str(d)
+	data += ","
+data = data[:-1]
+
+with open("temp.txt", 'w') as f:
+	f.write(data)
