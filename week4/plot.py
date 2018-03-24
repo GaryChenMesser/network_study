@@ -16,9 +16,9 @@ def node_edge(node, edge):
 	plt.ylabel('edge',fontsize=16)
 	plt.xlabel('node',fontsize=16)
 	plt.legend(handles=[slope])
-	plt.title(sys.argv[1].split('/')[-1].split('.')[0] + '(m=' + sys.argv[3] + ', c=' + sys.argv[4] + ')')
+	plt.title(sys.argv[1].split('/')[-1].split('.')[0] + '(m=' + sys.argv[2] + ', c=' + sys.argv[3] + ')')
 	plt.show()
-	plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[3] + '_' + sys.argv[4] + '_dense.png')
+	plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[2] + '_' + sys.argv[3] + '_dense.png')
 
 def diameter(dia, time):
 	plt.close()
@@ -26,4 +26,4 @@ def diameter(dia, time):
 	plt.ylabel('diameter',fontsize=16)
 	plt.xlabel('node',fontsize=16)
 	#plt.draw()
-	plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[3] + '_' + sys.argv[4] + '_shrink.png')
+	plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[2] + '_' + sys.argv[3] + '_shrink.png')

@@ -51,7 +51,7 @@ import numpy as np
 # No Notes
 #
 
-def plplot(x,xmin,alpha):
+def plplot(x,xmin,alpha, inout):
         # select method (discrete or continuous) for fitting
     if reduce(lambda X,Y:X==True and floor(Y)==float(Y),x,True):
     	f_dattype = 'INTS'
@@ -87,7 +87,7 @@ def plplot(x,xmin,alpha):
         plt.ylabel('Pr(X >= x)',fontsize=16);
         plt.xlabel('x',fontsize=16)
         plt.draw()
-        plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[3] + '_' + sys.argv[4] + '.png')
+        plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[2] + '_' + sys.argv[3] + '_' + inout + '.png')
         
     elif f_dattype== 'INTS':
         n = len(x)
@@ -117,7 +117,7 @@ def plplot(x,xmin,alpha):
         plt.ylabel('Pr(X >= x)',fontsize=16);
         plt.xlabel('x',fontsize=16)
         plt.draw()
-        plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[3] + '_' + sys.argv[4] + '.png')
+        plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[2] + '_' + sys.argv[3] + '_' + inout + '.png')
                  
           
 
