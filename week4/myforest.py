@@ -18,7 +18,7 @@ import math
 #from orderedset import OrderedSet
 from collections import deque
 
-#------------------------parse for arguments---------------------------
+#----------------------------------parse for arguments--------------------------------------
 
 parser = argparse.ArgumentParser(prog='myforest.py', 
                                  description='Specify the parameter for Forest Fire Model.')
@@ -29,14 +29,15 @@ args = parser.parse_args()
 if args.p > 1. or args.r > 1. or args.p <= 0. or args.r <= 0. or args.nodes < 2:
 	raise argparse.ArgumentTypeError("Input error.")
 
-#------------------------function definition---------------------------
+#----------------------------------function definition--------------------------------------
 
-############################################################################
+############################################################################################
 # The process of burning:
 # Although it's a recursive process,
 # the maximum recursive depth exceeded for p > 0.5 and r > 0.5 roughly.
 # Hence, I implement burning procrss in iterative way.
-############################################################################
+#
+############################################################################################
 def burning(g, new, source, forward, backard, recursion_que):
 	# decide x and y using geometric distribution
 	x = numpy.random.geometric(1 - forward) - 1
