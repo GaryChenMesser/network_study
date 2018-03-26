@@ -1,6 +1,6 @@
 if [ "$1" == "main_forest.py" ]
 then 
-	python3 $1 --p $2 --r $3 --nodes $4
+	python3 $1 --f $2 --b $3 --nodes $4
 	python plot_all.py $1 $2 $3
 elif [ "$1" == "main_heat.py" ]
 then
