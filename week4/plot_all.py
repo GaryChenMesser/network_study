@@ -35,3 +35,4 @@ for a in range(len(degree)):
 vis.plplot(numpy.array(degree[0]), results[0].power_law.xmin, results[0].power_law.alpha, 'in')
 if len(degree) > 1:
 	vis.plplot(numpy.array(degree[1]), results[0].power_law.xmin, results[0].power_law.alpha, 'out')
+
