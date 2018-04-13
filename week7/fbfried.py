@@ -73,11 +73,9 @@ class FacebookCrawler:
                     break
             
             if flag == 2:
-                break
+                return True
         
-        if flag == 2:
-            return true
-        return false
+        return False
     
     def get_ref(self):
         try:
