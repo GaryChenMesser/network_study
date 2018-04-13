@@ -116,38 +116,81 @@ class FacebookCrawler:
 
         return [friend.get_attribute('href') for friend in self._get_friends_list()]
 
-#class FriendGraph:
-#    fg = Graph(directed=False)
-#    
-#    def __init__(self):
+class FriendGraph:
+    G = Graph(directed=False)
+    v_href = G.new_vertex_property('string') # record href
+    v_visited = G.new_vertex_property('bool') # record visited or not
+    v_deleted = G.new_vertex_property('bool') # record deleted or not
     
+    def __init__(self, ref):
+        index = self.G.add_vertex()
+        self.v_href[index] = ref
+        self.v_visited[index] = False
+        self.v_deleted[index] = False
+        self.cursor = 0
+        self.href_dict = {v_href[index]: index}
+    
+    def check_visited(self, index):
+        if index >= len(self.v_visited):
+            print("index out of range\n")
+            return False
+        return v_visited[index]
+        
+    def check_deleted(self, index):
+        if index >= len(self.v_deleted):
+            print("index out of range\n")
+            return False
+        return v_deleted[index]
+    
+    def get_index(self, ref):
+        if ref in self.href_dict.keys():
+            return self.href_dict[ref]
+        
+        print("Unknown key\n")
+        return -1
+    
+    def add_vertex(self, ref):
+        index = self.G.add_vertex()
+        self.v_href[index] = ref
+        self.v_visited[index] = False
+        self.v_deleted[index] = False
+        self.href_dict = {v_href[index]: index}
+    
+    def visit(sef, ref):
+        self.v_visited[self.href_dict[ref]] = True
+    
+    def delete(self, ref):
+        self.v_deleted[self.href_dict[ref]] = True
     
 
 
 if __name__ == '__main__':
     crawler = FacebookCrawler(login = sys.argv[1], password = sys.argv[2] + ' ' + sys.argv[3])
     last_deque = deque()
+    graph = FriendGraph(crawler.get_ref())
     
-    G = Graph(directed = False)
-    v_href = G.new_vertex_property('str') # record href
-    G.add_vertex() # vertex 0
-    v_href[0] = crawler.get_href()
     
     try:
         for step in range(sys.argv[4]):
+            
+        
+        
             if len(old_deque) == 0:
                 this_deque = deque(crawler.get_friends())
             
             while len(old_deque) > 0:
-                crawler.get_user(old_deque.pop())
-                if not crawler.check_user():
-                    continue
+                user = old_pop()
+                crawler.get_user(user)
+                graph.visit(user)
                 
+                if not crawler.check_user():
+                    graph.delete(user)
+                    continue
                 
                 for friend in crawler.get_friends():
                     this_deque.append(friend)
             
-            old_deque = this_deque
+            #old_deque = this_deque
             
         
         
