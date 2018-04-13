@@ -119,6 +119,7 @@ class FriendGraph:
     v_href = G.new_vertex_property('string') # record href
     v_visited = G.new_vertex_property('bool') # record visited or not
     v_deleted = G.new_vertex_property('bool') # record deleted or not
+    v_source = G.new_vertex_property('int') # record the previous friendship
     
     def __init__(self, ref):
         index = self.G.add_vertex()
