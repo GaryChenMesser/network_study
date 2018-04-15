@@ -51,7 +51,7 @@ import numpy as np
 # No Notes
 #
 
-def plplot(x,xmin,alpha, inout):
+def plplot(x,xmin,alpha):
         # select method (discrete or continuous) for fitting
     if reduce(lambda X,Y:X==True and floor(Y)==float(Y),x,True):
     	f_dattype = 'INTS'
@@ -74,7 +74,7 @@ def plplot(x,xmin,alpha, inout):
         cf = map(lambda X:pow(float(X)/xmin,1.-alpha),q)
         cf = map(lambda X:X*float(c2[c1.index(q[0])]),cf)
 
-        h[0]=plt.loglog(c1, c2, 'bo',markersize=8,markerfacecolor=[1,1,1],markeredgecolor=[0,0,1], label = 'alpha = ' + str(alpha))
+        h[0]=plt.loglog(c1, c2, 'bo',markersize=8,markerfacecolor=[1,1,1],markeredgecolor=[0,0,1])
         h[1]=plt.loglog(q, cf, 'k--',linewidth=2)
         
         xr1 = pow(10,floor(log(min(x),10)))
@@ -82,12 +82,12 @@ def plplot(x,xmin,alpha, inout):
         yr1 = pow(10,floor(log(1./n,10)))
         yr2 = 1
         
+
         plt.axhspan(ymin=yr1,ymax=yr2,xmin=xr1,xmax=xr2)
         plt.ylabel('Pr(X >= x)',fontsize=16);
         plt.xlabel('x',fontsize=16)
-        plt.legend(handles=[h[0][0]])
         plt.draw()
-        plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[2] + '_' + sys.argv[3] + '_' + inout + '.png')
+        plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[3] + '_' + sys.argv[4] + '.png')
         
     elif f_dattype== 'INTS':
         n = len(x)
@@ -104,7 +104,7 @@ def plplot(x,xmin,alpha, inout):
         cf2 = map(lambda Z: 1.-Z,reduce(lambda X,Y: X+[Y+X[-1]],cf,[0]))
         cf2 = map(lambda X: X*float(c2[c1.index(xmin)]),cf2)
 
-        h[0]=plt.loglog(c1, c2, 'bo',markersize=8,markerfacecolor=[1,1,1],markeredgecolor=[0,0,1], label = 'alpha = ' + str(alpha))
+        h[0]=plt.loglog(c1, c2, 'bo',markersize=8,markerfacecolor=[1,1,1],markeredgecolor=[0,0,1])
         h[1]=plt.loglog(cf1, cf2, 'k--',linewidth=2)
         
         xr1 = pow(10,floor(log(min(x),10)))
@@ -116,9 +116,8 @@ def plplot(x,xmin,alpha, inout):
         plt.axhspan(ymin=yr1,ymax=yr2,xmin=xr1,xmax=xr2)
         plt.ylabel('Pr(X >= x)',fontsize=16);
         plt.xlabel('x',fontsize=16)
-        plt.legend(handles=[h[0][0]])
         plt.draw()
-        plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[2] + '_' + sys.argv[3] + '_' + inout + '.png')
+        plt.savefig(sys.argv[1].split('/')[-1].split('.')[0] + '_' + sys.argv[3] + '_' + sys.argv[4] + '.png')
                  
           
 
