@@ -1,0 +1,1 @@
+./benchmark -f ./flags/flags.dat -t1 3

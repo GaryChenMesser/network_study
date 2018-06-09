@@ -25,8 +25,8 @@ import util_forest as util
 
 parser = argparse.ArgumentParser(prog='main_forest.py', 
                                  description='Specify the parameter for Forest Fire Model.')
-parser.add_argument('--f', type=float, required = True, help='Forward burning probability.')
-parser.add_argument('--b', type=float, required = True, help='Backard burning probability.')
+parser.add_argument('--p', type=float, required = True, help='Forward burning probability.')
+parser.add_argument('--r', type=float, required = True, help='Backard burning probability.')
 parser.add_argument('--nodes', type=int, required = True, help='Number of nodes.')
 args = parser.parse_args()
 if args.p > 1. or args.r > 1. or args.p <= 0. or args.r <= 0. or args.nodes < 2:
