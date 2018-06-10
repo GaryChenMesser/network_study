@@ -1,6 +1,24 @@
 import sys
 import numpy as np
+import matplotlib.pyplot as plt
 
+def confusion_matrix(slope):
+  for i in range(slope.shape[0]):
+    slope[i] /= sum(slope[i])
+  #row_labels = [format(_min + (_max - _min) / _insert / 2 * i, '.2f') for i in range(_insert * 2)]
+  #column_labels = [format(_min + (_max - _min) / _insert / 2 * i, '.2f') for i in range(_insert * 2)]
+  fig, ax = plt.subplots()
+  heatmap = ax.pcolor(slope, cmap='hot')
+
+  #legend
+  cbar = plt.colorbar(heatmap)
+  #plt.imshow(slope, cmap='hot', interpolation='nearest')
+	
+  #ax.set_yticklabels(row_labels, minor=False)
+  #ax.set_xticklabels(column_labels, minor=False)
+  plt.savefig('heat.png')
+  plt.show()
+  
 def nmi(result1, result2):
   start1 = min(result1)
   start2 = min(result2)
@@ -11,6 +29,8 @@ def nmi(result1, result2):
   
   for i, j in zip(result1, result2):
     confusion[i - start1][j - start2] += 1
+  
+  confusion_matrix(np.copy(confusion))
   
   nmi1 = 0.
   nmi2 = 0.
@@ -33,7 +53,7 @@ def main():
   with open(sys.argv[1], 'r') as f:
     result1 = list(map(lambda x: int(x.split('	')[1]), f.read().split('\n')[:-1]))
   with open(sys.argv[2], 'r') as f:
-    result2 = list(map(lambda x: int(x.split('	')[1]), f.read().split('\n')))
+    result2 = list(map(lambda x: int(x.split('	')[1]), f.read().split('\n')[:-1]))
   
   if len(result1) != len(result2):
     print("len(result1) = {} is not equal to len(result2) = {}".format(len(result1), len(result2)))

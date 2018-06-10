@@ -62,6 +62,8 @@ class SmIS_epidemic:
       print("{}th update:".format(i))
       self._update_state()
     
+    self._voting()
+    
   
 #-----------------private epidemic method----------------------------
   def _init_spread(self, first_time, patient_zero):
@@ -117,7 +119,7 @@ class SmIS_epidemic:
               self._infection_or_attack(v, neighbor)
       
       for v, r in enumerate(recover_list):
-        if r and self.v_reinfected[v] <= 0: # FIXME: This condition make corner node unstable. For example, no neighbor virus dominates.
+        if r and self.v_reinfected[v] <= self.g.vertex(v).out_degree() * self.spread_beta * 0.0: # FIXME: This condition make corner node unstable. For example, no neighbor virus dominates.
           self._recovery(v)
       
       u, count = np.unique(self.v_infected.a, return_counts=True)
