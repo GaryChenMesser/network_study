@@ -63,7 +63,6 @@ class SmIS_epidemic:
       self._update_state()
     
     self._voting()
-    
   
 #-----------------private epidemic method----------------------------
   def _init_spread(self, first_time, patient_zero):
@@ -94,8 +93,8 @@ class SmIS_epidemic:
     e_beta = self.e_spread_beta
     delta = self.spread_delta
     
-    for v in self.g.vertices():
-      self.v_reinfected[v] = 0
+    #for v in self.g.vertices():
+    #  self.v_reinfected[v] = 0
 
     total = 0
     for v in self.g.vertices():
@@ -114,9 +113,11 @@ class SmIS_epidemic:
           if np.random.random() < delta:
             recover_list[v] = True
           
-          for neighbor in self.g.vertex(v).out_neighbors():
-            if np.random.random() < e_beta[self.g.edge(v, neighbor)]:
-              self._infection_or_attack(v, neighbor)
+          chosen = np.random.randint(self.g.vertex(v).out_degree())
+          for i, neighbor in enumerate(self.g.vertex(v).out_neighbors()):
+            if i == chosen:
+              if np.random.random() < e_beta[self.g.edge(v, neighbor)]:
+                self._infection_or_attack(v, neighbor)
       
       for v, r in enumerate(recover_list):
         if r and self.v_reinfected[v] <= self.g.vertex(v).out_degree() * self.spread_beta * 0.0: # FIXME: This condition make corner node unstable. For example, no neighbor virus dominates.
@@ -153,7 +154,11 @@ class SmIS_epidemic:
     # infect
     else:
       self.v_infected[n] = self.v_infected[v]
+      if self.v_infected[n] == 0 and self.v_reinfected[n] != 0:
+        print('error!!!\n\n\n\n\n\n\n\n\n\n')
       self.v_reinfected[n] += 1
       #self.e_reinfected[self.g.edge(v, n)] += 1
+  
   def _recovery(self, v):
     self.v_infected[v] = 0
+    self.v_reinfected[v] = 0
